@@ -10,7 +10,7 @@ from .config import settings
 
 app = FastAPI()
 
-origins = ["https://www.google.com"]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -27,7 +27,7 @@ app.include_router(vote.router)
 
 @app.get("/")
 def root():
-  return {"message": "Welcome to my api!"}
+  return {"message": "Hello, and welcome to my api!"}
 
 
 
