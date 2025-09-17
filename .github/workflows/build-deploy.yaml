@@ -2,16 +2,18 @@ on: [push, pull_request]
 
 jobs:
   job1:
-    runs-on: ubuntu-latest
+    environment:
+      name: testing
     env:
-      DATABASE_HOSTNAME: localhost          # or 127.0.0.1 if you start a DB service
-      DATABASE_PORT: "5432"
-      DATABASE_NAME: fastapi
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME:}}
+      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+      DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+      DATABASE_USERNAME: ${{DATABASE_USERNAME}}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      ALGORITHM: HS256
-      ACCESS_TOKEN_EXPIRE_MINUTES: "30"
+      ALGORITHM: ${{secrets.ALGORITHM}}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{ACCESS_TOKEN_EXPIRE_MINUTES}}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install Python 3.13.3
